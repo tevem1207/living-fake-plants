@@ -105,9 +105,10 @@ replay_pid*
 ### react ###
 .DS_*
 logs
+
 **/*.backup.*
 **/*.back.*
-
+build
 node_modules
 bower_components
 
