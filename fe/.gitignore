@@ -138,3 +138,4 @@ sketch
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/firebase,visualstudiocode,java,eclipse,react
+.env
