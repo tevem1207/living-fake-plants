@@ -1,12 +1,13 @@
 .login-btn-container {
-  padding-bottom: 20px;
+  margin-bottom: 5%;
+  display: flex;
 }
 
 .login-btn {
   padding: 10px;
-  margin: 5px;
-  width: 30px;
-  height: 30px;
+  margin: 5px calc(10px + 2vmin);
+  width: calc(15px + 2vmin);
+  height: calc(15px + 2vmin);
   border-radius: 5px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25),
     -2px -2px 2px rgba(255, 255, 255, 0.3);
@@ -16,4 +17,9 @@
 .login-btn:active {
   box-shadow: 2px 2px 2px inset rgba(0, 0, 0, 0.25),
     -2px -2px 2px inset rgba(255, 255, 255, 0.3);
+}
+
+.game-title {
+  font-family: bitbit;
+  font-size: calc(18px + 3.5vmin);
 }
