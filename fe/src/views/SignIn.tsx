@@ -1,10 +1,12 @@
 import useAuth from "../hooks/useAuth";
-import "assets/css/SignIn.css";
+import Button from "@mui/material/Button";
 import { ReactComponent as GithubSign } from "assets/imgs/github-logo.svg";
 import { ReactComponent as GoogleSign } from "assets/imgs/google-logo.svg";
+import "assets/css/SignIn.css";
+import { bgcolor } from "@mui/system";
 
 const SignIn = () => {
-  const { signIn, logOut } = useAuth();
+  const { signIn } = useAuth();
 
   return (
     <>
@@ -12,14 +14,26 @@ const SignIn = () => {
         <p className="game-title">살아있는 가짜 식물</p>
       </div>
       <div className="login-btn-container">
-        <GithubSign
-          className="github-login login-btn"
-          onClick={() => signIn("Github")}
-        />
-        <GoogleSign
-          className="google-login login-btn"
-          onClick={() => signIn("Google")}
-        />
+        <Button
+          variant="contained"
+          sx={{ bgcolor: "info.github.background", color: "info.github.text" }}
+        >
+          <GithubSign
+            className="github-logo login-logo"
+            onClick={() => signIn("Github")}
+          />
+          Github로 시작하기
+        </Button>
+        <Button
+          variant="contained"
+          sx={{ bgcolor: "info.google.background", color: "info.google.text" }}
+        >
+          <GoogleSign
+            className="google-logo login-logo"
+            onClick={() => signIn("Google")}
+          />
+          Google로 시작하기
+        </Button>
       </div>
     </>
   );

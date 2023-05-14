@@ -1,4 +1,4 @@
-import { auth } from "fireabase";
+import { auth } from "utils/fireabase";
 import {
   GoogleAuthProvider,
   GithubAuthProvider,
