@@ -4,25 +4,28 @@ import { ThemeProvider, Container, Box } from "@mui/material";
 import useTheme from "hooks/useTheme";
 import Home from "views/Home";
 import SignIn from "views/SignIn";
+import Redirect from "views/Redirect";
 import useAuth from "hooks/useAuth";
 
 function App() {
-  const navigate = useNavigate();
-  const { user, setUser, onAuthChanged } = useAuth();
+  const { user, setUser, signIn, signOut, onAuthChanged } = useAuth();
   const { theme, colorMode } = useTheme();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setScreenSize();
+    window.addEventListener("resize", setScreenSize);
+
+    return () => window.removeEventListener("resize", setScreenSize);
+  }, []);
 
   useEffect(() => {
     onAuthChanged((user) => {
       if (user) {
         setUser(user);
-        navigate("/");
       } else {
         navigate("/signin");
       }
-      setScreenSize();
-      window.addEventListener("resize", setScreenSize);
-
-      return () => window.removeEventListener("resize", setScreenSize);
     });
   }, []);
 
@@ -43,8 +46,12 @@ function App() {
             }}
           >
             <Routes>
-              <Route path="/" element={<Home user={user} />} />
-              <Route path="/signin" element={<SignIn />} />
+              <Route
+                path="/"
+                element={<Home user={user} signOut={signOut} />}
+              />
+              <Route path="/signin" element={<SignIn signIn={signIn} />} />
+              <Route path="/redirect" element={<Redirect />} />
             </Routes>
           </Container>
         </Box>

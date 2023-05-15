@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { Box, Collapse, IconButton, ListItem, List } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
-import useAuth from "hooks/useAuth";
+import { User } from "firebase/auth";
 import { Logout, Menu, AutoStories } from "@mui/icons-material";
 
-const MenuButton = () => {
+interface MenuButtonProps {
+  user: User | null;
+  signOut: () => void;
+}
+
+const MenuButton = ({ user, signOut }: MenuButtonProps) => {
   const [isMenu, setIsMenu] = useState(false);
-  const { logOut } = useAuth();
 
   return (
     <Box position={"absolute"} top="15px" right="20px">
@@ -22,7 +26,7 @@ const MenuButton = () => {
                   <IconButton
                     aria-label="logout"
                     sx={{ mt: 2 }}
-                    onClick={logOut}
+                    onClick={signOut}
                   >
                     <Logout fontSize="large" />
                   </IconButton>

@@ -1,16 +1,17 @@
 import { User } from "firebase/auth";
 import MenuButton from "components/MenuButton";
-import PotView from "components/PotView";
+import Pot from "components/Pot";
 
 interface HomeProps {
   user: User | null;
+  signOut: () => void;
 }
 
-const Home = ({ user }: HomeProps) => {
+const Home = ({ user, signOut }: HomeProps) => {
   return (
     <>
-      <MenuButton />
-      <PotView />
+      <MenuButton user={user} signOut={signOut} />
+      <Pot />
     </>
   );
 };

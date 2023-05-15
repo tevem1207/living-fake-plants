@@ -1,12 +1,13 @@
-import useAuth from "../hooks/useAuth";
 import { Button, Typography, Stack, SvgIcon } from "@mui/material";
 import TitleTypography from "components/TitleTypograpy";
 import { ReactComponent as GithubLogo } from "assets/imgs/github-logo.svg";
 import { ReactComponent as GoogleLogo } from "assets/imgs/google-logo.svg";
 
-const SignIn = () => {
-  const { signIn } = useAuth();
+interface SignInProps {
+  signIn: (name: string) => void;
+}
 
+const SignIn = ({ signIn }: SignInProps) => {
   return (
     <>
       <TitleTypography />

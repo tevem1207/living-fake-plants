@@ -18,7 +18,15 @@ code {
     url("//cdn.df.nexon.com/img/common/font/DNFBitBit-Regular.woff2");
 }
 
+:root {
+  --pixel-img-size: calc(96px + 5vmin);
+}
+
 .pixel-img {
+  position: absolute;
   image-rendering: pixelated;
-  width: 96px;
+  top: calc(-1 * var(--pixel-img-size) / 2);
+  left: calc(-1 * var(--pixel-img-size) / 2);
+  width: var(--pixel-img-size);
+  height: var(--pixel-img-size);
 }
