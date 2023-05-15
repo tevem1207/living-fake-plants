@@ -5,10 +5,10 @@ import {
   User,
   onAuthStateChanged,
   signOut as logOut,
-  signInWithRedirect,
+  signInWithPopup,
 } from "firebase/auth";
 import { useState } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -28,9 +28,9 @@ const useAuth = () => {
   const signIn = (name: string) => {
     navigate(`/redirect?provider=${name}`);
     const provider = getProvider(name);
-    signInWithRedirect(auth, provider)
-      .then(() => {
-        navigate("/");
+    signInWithPopup(auth, provider)
+      .then((res) => {
+        setUser(res.user);
       })
       .catch((error) => {
         console.log(error);

@@ -51,7 +51,7 @@ function App() {
                 element={<Home user={user} signOut={signOut} />}
               />
               <Route path="/signin" element={<SignIn signIn={signIn} />} />
-              <Route path="/redirect" element={<Redirect />} />
+              <Route path="/redirect" element={<Redirect user={user} />} />
             </Routes>
           </Container>
         </Box>

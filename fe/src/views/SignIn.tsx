@@ -19,7 +19,7 @@ const SignIn = ({ signIn }: SignInProps) => {
             color: "info.github.text",
             textTransform: "none",
           }}
-          onClick={() => signIn("Github")}
+          onClick={() => signIn("github")}
         >
           <SvgIcon component={GithubLogo} fill="#ffffff" inheritViewBox />
           <Typography marginLeft={1}>Github로 시작하기</Typography>
@@ -35,7 +35,7 @@ const SignIn = ({ signIn }: SignInProps) => {
               bgcolor: "info.google.hovered",
             },
           }}
-          onClick={() => signIn("Google")}
+          onClick={() => signIn("google")}
         >
           <SvgIcon component={GoogleLogo} inheritViewBox />
           <Typography marginLeft={1}>Google로 시작하기</Typography>
