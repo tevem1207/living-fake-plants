@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { PaletteMode, createTheme } from "@mui/material";
 import { grey, deepOrange, yellow, brown } from "@mui/material/colors";
 
-const useDark = () => {
+const useTheme = () => {
   const [mode, setMode] = useState<PaletteMode>("light");
   const colorMode = useMemo(
     () => ({
@@ -24,7 +24,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
     info: {
       main: grey[100],
       github: { background: "#24292f", text: "#ffffff" },
-      google: { background: "#ffffff", text: "#595959" },
+      google: { background: "#ffffff", text: "#595959", hovered: "#ededed" },
     },
     ...(mode === "light"
       ? {
@@ -55,4 +55,4 @@ const getDesignTokens = (mode: PaletteMode) => ({
   },
 });
 
-export default useDark;
+export default useTheme;

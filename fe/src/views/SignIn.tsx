@@ -1,40 +1,45 @@
 import useAuth from "../hooks/useAuth";
-import Button from "@mui/material/Button";
-import { ReactComponent as GithubSign } from "assets/imgs/github-logo.svg";
-import { ReactComponent as GoogleSign } from "assets/imgs/google-logo.svg";
-import "assets/css/SignIn.css";
-import { bgcolor } from "@mui/system";
+import { Button, Typography, Stack, SvgIcon } from "@mui/material";
+import TitleTypography from "components/TitleTypograpy";
+import { ReactComponent as GithubLogo } from "assets/imgs/github-logo.svg";
+import { ReactComponent as GoogleLogo } from "assets/imgs/google-logo.svg";
 
 const SignIn = () => {
   const { signIn } = useAuth();
 
   return (
     <>
-      <div>
-        <p className="game-title">살아있는 가짜 식물</p>
-      </div>
-      <div className="login-btn-container">
+      <TitleTypography />
+      <Stack maxWidth="xs" marginY={"5%"}>
         <Button
           variant="contained"
-          sx={{ bgcolor: "info.github.background", color: "info.github.text" }}
+          sx={{
+            bgcolor: "info.github.background",
+            color: "info.github.text",
+            textTransform: "none",
+          }}
+          onClick={() => signIn("Github")}
         >
-          <GithubSign
-            className="github-logo login-logo"
-            onClick={() => signIn("Github")}
-          />
-          Github로 시작하기
+          <SvgIcon component={GithubLogo} fill="#ffffff" inheritViewBox />
+          <Typography marginLeft={1}>Github로 시작하기</Typography>
         </Button>
         <Button
           variant="contained"
-          sx={{ bgcolor: "info.google.background", color: "info.google.text" }}
+          sx={{
+            marginTop: 1,
+            bgcolor: "info.google.background",
+            color: "info.google.text",
+            textTransform: "none",
+            "&:hover": {
+              bgcolor: "info.google.hovered",
+            },
+          }}
+          onClick={() => signIn("Google")}
         >
-          <GoogleSign
-            className="google-logo login-logo"
-            onClick={() => signIn("Google")}
-          />
-          Google로 시작하기
+          <SvgIcon component={GoogleLogo} inheritViewBox />
+          <Typography marginLeft={1}>Google로 시작하기</Typography>
         </Button>
-      </div>
+      </Stack>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { useEffect, createContext } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { ThemeProvider, Container, Box } from "@mui/material";
-import useDark from "hooks/useDark";
+import useTheme from "hooks/useTheme";
 import Home from "views/Home";
 import SignIn from "views/SignIn";
 import useAuth from "hooks/useAuth";
@@ -9,7 +9,7 @@ import useAuth from "hooks/useAuth";
 function App() {
   const navigate = useNavigate();
   const { user, setUser, onAuthChanged } = useAuth();
-  const { theme, colorMode } = useDark();
+  const { theme, colorMode } = useTheme();
 
   useEffect(() => {
     onAuthChanged((user) => {
@@ -35,6 +35,7 @@ function App() {
             sx={{
               height: "calc(var(--vh, 1vh) * 100)",
               display: "flex",
+              position: "relative",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
