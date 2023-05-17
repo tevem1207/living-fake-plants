@@ -13,9 +13,9 @@ const MenuButton = ({ user, signOut }: MenuButtonProps) => {
   const [isMenu, setIsMenu] = useState(false);
 
   return (
-    <Box position={"absolute"} top="15px" right="20px">
+    <Box position="absolute" top="15px" left="20px">
       <IconButton onClick={() => setIsMenu(!isMenu)}>
-        <Menu fontSize="large" />
+        <Menu fontSize="large" color="primary" />
       </IconButton>
       <Box>
         <TransitionGroup>
@@ -28,12 +28,12 @@ const MenuButton = ({ user, signOut }: MenuButtonProps) => {
                     sx={{ mt: 2 }}
                     onClick={signOut}
                   >
-                    <Logout fontSize="large" />
+                    <Logout fontSize="large" color="primary" />
                   </IconButton>
                 </ListItem>
                 <ListItem disablePadding>
                   <IconButton aria-label="book" sx={{ mt: 2 }}>
-                    <AutoStories fontSize="large" />
+                    <AutoStories fontSize="large" color="primary" />
                   </IconButton>
                 </ListItem>
               </List>

@@ -8,33 +8,37 @@ import Redirect from "views/Redirect";
 import useAuth from "hooks/useAuth";
 
 function App() {
-  const { user, setUser, signIn, signOut, onAuthChanged } = useAuth();
-  const { theme, colorMode } = useTheme();
+  const { user, setUser, signIn, signOut, auth } = useAuth();
+  const { mode, setMode, theme, colorMode } = useTheme();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setScreenSize();
     window.addEventListener("resize", setScreenSize);
 
-    return () => window.removeEventListener("resize", setScreenSize);
-  }, []);
+    if (user) {
+      setUser(user);
+      navigate("/");
+    } else {
+      navigate("/signin");
+    }
 
-  useEffect(() => {
-    onAuthChanged((user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        navigate("/signin");
-      }
-    });
+    return () => window.removeEventListener("resize", setScreenSize);
   }, []);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <Box sx={{ bgcolor: "background.default" }}>
+        <Box
+          sx={{
+            bgcolor: "background.default",
+            transition: "background ease 500ms",
+
+            // backgroundImage: mode === "dark" ? `url(${rainGif})` : "",
+          }}
+        >
+          {auth?.currentUser?.displayName}
           <Container
-            maxWidth="md"
+            maxWidth="sm"
             sx={{
               height: "calc(var(--vh, 1vh) * 100)",
               display: "flex",
@@ -43,12 +47,20 @@ function App() {
               alignItems: "center",
               justifyContent: "center",
               color: "text.primary",
+              overflow: "hidden",
             }}
           >
             <Routes>
               <Route
                 path="/"
-                element={<Home user={user} signOut={signOut} />}
+                element={
+                  <Home
+                    user={user}
+                    signOut={signOut}
+                    mode={mode}
+                    setMode={setMode}
+                  />
+                }
               />
               <Route path="/signin" element={<SignIn signIn={signIn} />} />
               <Route path="/redirect" element={<Redirect user={user} />} />

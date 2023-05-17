@@ -5,7 +5,7 @@ const TextWrapper = styled(Typography)({
   fontFamily: "bitbit",
   fontSize: "calc(18px + 3.5vmin)",
   "& span": {
-    animation: "jump 5s infinite",
+    animation: "jump 4s infinite 0.5s",
     display: "inline-block",
     marginLeft: "2px",
   },

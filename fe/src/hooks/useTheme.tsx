@@ -15,7 +15,7 @@ const useTheme = () => {
     []
   );
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
-  return { colorMode, theme };
+  return { mode, setMode, colorMode, theme };
 };
 
 const getDesignTokens = (mode: PaletteMode) => ({
@@ -44,8 +44,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
             main: yellow[200],
           },
           background: {
-            default: deepOrange[900],
-            paper: deepOrange[900],
+            default: grey[800],
           },
           text: {
             primary: "#fff",
