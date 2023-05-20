@@ -1,3 +1,3 @@
 # Living Fake Plants
 
-React + express
+React + Firebase
