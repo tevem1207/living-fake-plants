@@ -4,8 +4,8 @@ import potBottom from "assets/imgs/pot_bottom.png";
 import potTop from "assets/imgs/pot_top.png";
 import usePot from "hooks/usePot";
 
-const Pot = () => {
-  usePot();
+const Pot = ({ uid }: { uid: string }) => {
+  const { pot } = usePot(uid);
 
   return (
     <Box
@@ -25,6 +25,7 @@ const Pot = () => {
         },
       }}
     >
+      {pot?.accessTime}
       <img className="pixel-img pot" src={potTop} alt="pot-top" />
       <Plant />
       <img className="pixel-img pot" src={potBottom} alt="pot-bottom" />

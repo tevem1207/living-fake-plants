@@ -1,21 +1,20 @@
-import { auth } from "utils/fireabase";
+import { auth, defaultAuth } from "utils/fireabase";
 import {
   GoogleAuthProvider,
   GithubAuthProvider,
   User,
   signOut as logOut,
   signInWithPopup,
-  signInWithCustomToken,
-  onAuthStateChanged,
-  getAuth,
+  getAdditionalUserInfo,
 } from "firebase/auth";
 import { useState, useEffect } from "react";
+import useFireStore from "hooks/useFirestore";
 import { useNavigate } from "react-router-dom";
-import { get } from "http";
 
 const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
+  const { createDataWithId } = useFireStore();
 
   const getProvider = (name: string) => {
     switch (name) {
@@ -34,8 +33,10 @@ const useAuth = () => {
       const provider = getProvider(name);
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      const token = await user.getIdToken();
-      localStorage.setItem("lfptoken", token);
+      if (getAdditionalUserInfo(result)?.isNewUser) {
+        console.log("new");
+        createDataWithId({ pot: [] }, "user", user.uid);
+      }
       setUser(user);
     } catch (error) {
       console.log("Google 로그인 실패:", error);
@@ -53,8 +54,10 @@ const useAuth = () => {
   };
 
   useEffect(() => {
-    console.log(localStorage);
-  });
+    const unsubscribe = defaultAuth.onIdTokenChanged(setUser);
+    return () => unsubscribe();
+  }, []);
+
   return { user, setUser, signIn, signOut, auth };
 };
 

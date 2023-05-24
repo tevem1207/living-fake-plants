@@ -1,5 +1,4 @@
 export interface Pot {
-  potId: string;
   plantId: string;
   userId: string;
   potName: string;
@@ -11,7 +10,6 @@ export interface Pot {
 }
 
 export interface Plant {
-  plantId: string;
   plantName: string;
   plantMoisture: number;
 }

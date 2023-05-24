@@ -15,15 +15,17 @@ function App() {
   useEffect(() => {
     window.addEventListener("resize", setScreenSize);
 
+    return () => window.removeEventListener("resize", setScreenSize);
+  }, []);
+
+  useEffect(() => {
     if (user) {
       setUser(user);
       navigate("/");
     } else {
       navigate("/signin");
     }
-
-    return () => window.removeEventListener("resize", setScreenSize);
-  }, []);
+  }, [user]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -36,7 +38,6 @@ function App() {
             // backgroundImage: mode === "dark" ? `url(${rainGif})` : "",
           }}
         >
-          {auth?.currentUser?.displayName}
           <Container
             maxWidth="sm"
             sx={{

@@ -14,11 +14,10 @@ interface HomeProps {
 }
 
 const Home = ({ user, signOut, mode, setMode }: HomeProps) => {
-  console.log(user);
   return (
     <>
       {mode === "dark" && <Rain delay={2} drops={80} />}
-      {user && <Pot />}
+      {user && <Pot uid={user.uid} />}
       {mode === "dark" && <Rain delay={0.5} drops={120} />}
       <MenuButton user={user} signOut={signOut} />
       <WeatherSwitch mode={mode} setMode={setMode} />
