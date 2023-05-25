@@ -3,9 +3,13 @@ import Plant from "components/Plant";
 import potBottom from "assets/imgs/pot_bottom.png";
 import potTop from "assets/imgs/pot_top.png";
 import usePot from "hooks/usePot";
+import { useEffect } from "react";
 
 const Pot = ({ uid }: { uid: string }) => {
   const { pot } = usePot(uid);
+  useEffect(() => {
+    console.log(pot);
+  }, [pot]);
 
   return (
     <Box
@@ -25,7 +29,6 @@ const Pot = ({ uid }: { uid: string }) => {
         },
       }}
     >
-      {pot?.accessTime}
       <img className="pixel-img pot" src={potTop} alt="pot-top" />
       <Plant />
       <img className="pixel-img pot" src={potBottom} alt="pot-bottom" />

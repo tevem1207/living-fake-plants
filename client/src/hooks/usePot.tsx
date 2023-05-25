@@ -21,7 +21,7 @@ const usePot = (uid: string) => {
       };
       const potId = await createData(pot, "pot");
       updateData("user/" + uid, { pot: arrayUnion(potId) });
-      return pot;
+      setPot(pot);
     } catch (e) {
       console.log(e);
     }
@@ -49,8 +49,7 @@ const usePot = (uid: string) => {
 
   useEffect(() => {
     getUserPot(uid).then((res) => {
-      console.log(res);
-      if (res?.pot) {
+      if (res?.pot && res.pot.length > 0) {
         getPot(res.pot[0]);
       } else {
         addPot(uid, "이름없음");
