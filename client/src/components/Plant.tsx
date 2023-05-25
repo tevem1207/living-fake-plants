@@ -4,6 +4,7 @@ import { Pot } from "utils/types";
 interface PlantProps {
   pot: Pot;
 }
+
 const Plant = ({ pot }: PlantProps) => {
   return (
     <img

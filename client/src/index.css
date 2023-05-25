@@ -21,12 +21,21 @@ code {
 
 :root {
   --pixel-img-size: calc(96px + 5vmin);
+  --pot-img-size: calc(var(--pixel-img-size) * 1.25)
 }
 
 .pixel-img {
   position: absolute;
+  transition: all 1s ease;
   top: calc(-1 * var(--pixel-img-size) / 2);
   left: calc(-1 * var(--pixel-img-size) / 2);
   width: var(--pixel-img-size);
   height: var(--pixel-img-size);
+}
+
+.pixel-img.pot {
+  top: calc(-1 * var(--pot-img-size) / 2);
+  left: calc(-1 * var(--pot-img-size) / 2);
+  width: var(--pot-img-size);
+  height: var(--pot-img-size);
 }

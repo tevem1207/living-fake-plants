@@ -6,12 +6,13 @@ import Home from "views/Home";
 import SignIn from "views/SignIn";
 import Redirect from "views/Redirect";
 import useAuth from "hooks/useAuth";
+import Reset from "views/Reset";
 
 function App() {
-  const { user, setUser, signIn, signOut, auth } = useAuth();
+  const { user, setUser, signIn, signOut } = useAuth();
   const { mode, setMode, theme, colorMode } = useTheme();
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   useEffect(() => {
     window.addEventListener("resize", setScreenSize);
 
@@ -52,17 +53,23 @@ function App() {
             }}
           >
             <Routes>
-              <Route
-                path="/"
-                element={
-                  <Home
-                    user={user}
-                    signOut={signOut}
-                    mode={mode}
-                    setMode={setMode}
+              {user && (
+                <>
+                  <Route
+                    path="/"
+                    element={
+                      <Home
+                        user={user}
+                        signOut={signOut}
+                        mode={mode}
+                        setMode={setMode}
+                      />
+                    }
                   />
-                }
-              />
+                  <Route path="/reset" element={<Reset user={user} />} />
+                </>
+              )}
+
               <Route path="/signin" element={<SignIn signIn={signIn} />} />
               <Route path="/redirect" element={<Redirect user={user} />} />
             </Routes>

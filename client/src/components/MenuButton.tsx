@@ -2,14 +2,15 @@ import { useState } from "react";
 import { Box, Collapse, IconButton, ListItem, List } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
 import { User } from "firebase/auth";
-import { Logout, Menu, AutoStories } from "@mui/icons-material";
+import { Logout, Menu, AutoStories, Replay } from "@mui/icons-material";
 
 interface MenuButtonProps {
   user: User | null;
   signOut: () => void;
+  resetPot: () => Promise<void>;
 }
 
-const MenuButton = ({ user, signOut }: MenuButtonProps) => {
+const MenuButton = ({ user, signOut, resetPot }: MenuButtonProps) => {
   const [isMenu, setIsMenu] = useState(false);
 
   return (
@@ -24,16 +25,20 @@ const MenuButton = ({ user, signOut }: MenuButtonProps) => {
               <List sx={{ padding: 0 }}>
                 <ListItem disablePadding>
                   <IconButton
+                    onClick={signOut}
                     aria-label="logout"
                     sx={{ mt: 2 }}
-                    onClick={signOut}
                   >
                     <Logout fontSize="large" color="primary" />
                   </IconButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <IconButton aria-label="book" sx={{ mt: 2 }}>
-                    <AutoStories fontSize="large" color="primary" />
+                  <IconButton
+                    onClick={resetPot}
+                    aria-label="book"
+                    sx={{ mt: 2 }}
+                  >
+                    <Replay fontSize="large" color="primary" />
                   </IconButton>
                 </ListItem>
               </List>

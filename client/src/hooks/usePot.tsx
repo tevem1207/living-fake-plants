@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import useFireStore from "./useFirestore";
 import { Plant, Pot } from "utils/types";
-import { arrayUnion } from "firebase/firestore";
+import { arrayUnion, arrayRemove } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const usePot = (uid: string) => {
-  const [pot, setPot] = useState<Pot>();
+  const [pot, setPot] = useState<Pot | null>(null);
   const [potId, setPotId] = useState("");
   const { createData, readData, updateData, deleteData } = useFireStore();
+  const navigate = useNavigate();
 
   const addPot = async (uid: string, potName: string) => {
     try {
@@ -25,6 +27,7 @@ const usePot = (uid: string) => {
         updateData("user/" + uid, { pot: arrayUnion(potId) });
         setPotId(potId);
         setPot(pot);
+        return potId;
       } else {
         console.log("pot 생성 실패");
       }
@@ -35,9 +38,7 @@ const usePot = (uid: string) => {
 
   const getPot = async (potId: string) => {
     try {
-      const potData = await (readData("pot/" + potId) as Promise<
-        Pot | undefined
-      >);
+      const potData = await (readData("pot/" + potId) as Promise<Pot | null>);
       setPotId(potId);
       setPot(potData);
     } catch (e) {
@@ -45,20 +46,31 @@ const usePot = (uid: string) => {
     }
   };
 
-  const getUserPot = async (uid: string) => {
+  const getUserPot = async () => {
     try {
-      const potData = (await readData("user/" + uid)) as { pot: string[] };
-      return potData;
+      const { pot } = (await readData("user/" + uid)) as { pot: string[] };
+      if (pot && pot.length > 0) {
+        getPot(pot[0]);
+      } else {
+        addPot(uid, "이름없음");
+      }
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const deletePot = async () => {
+    await deleteData("pot/" + potId);
+    setPot(null);
+    setPotId("");
+    await updateData("user/" + uid, { pot: arrayRemove(potId) });
   };
 
   const growPot = async (isRain: boolean) => {
     if (pot && potId) {
       const plant = (await readData("plant/" + pot?.plantId)) as Plant;
       const newGauge =
-        pot.growthGauge + 20 - Math.abs(pot.potMoisture - plant.plantMoisture);
+        pot.growthGauge + 30 - Math.abs(pot.potMoisture - plant.plantMoisture);
       await updateData("pot/" + potId, {
         potMoisture: isRain
           ? pot.potMoisture < 20
@@ -81,16 +93,14 @@ const usePot = (uid: string) => {
     }
   };
 
-  useEffect(() => {
-    getUserPot(uid).then((res) => {
-      if (res?.pot && res.pot.length > 0) {
-        getPot(res.pot[0]);
-      } else {
-        addPot(uid, "이름없음");
-      }
-    });
-  }, []);
-  return { pot, growPot };
+  const resetPot = async () => {
+    navigate("/reset");
+    await deletePot();
+    await addPot(uid, "이름없음");
+    navigate("/");
+  };
+
+  return { pot, growPot, resetPot, getUserPot };
 };
 
 export default usePot;
