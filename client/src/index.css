@@ -25,7 +25,6 @@ code {
 
 .pixel-img {
   position: absolute;
-  image-rendering: pixelated;
   top: calc(-1 * var(--pixel-img-size) / 2);
   left: calc(-1 * var(--pixel-img-size) / 2);
   width: var(--pixel-img-size);
