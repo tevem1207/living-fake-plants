@@ -14,7 +14,7 @@ interface PotProps {
 const Pot = ({ pot, growPot, mode }: PotProps) => {
   useInterval(() => {
     growPot(mode === "dark" ? true : false);
-  }, 3000);
+  }, 10000);
 
   return (
     <Box
