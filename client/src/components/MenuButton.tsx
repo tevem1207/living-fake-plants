@@ -31,7 +31,7 @@ const MenuButton = ({ user, signOut, resetPot }: MenuButtonProps) => {
             <Collapse key="menu">
               <List sx={{ padding: 0 }}>
                 <ListItem disablePadding>
-                  <Tooltip title="Logout" placement="right">
+                  <Tooltip title="로그아웃" placement="right">
                     <IconButton
                       onClick={signOut}
                       aria-label="logout"
@@ -42,7 +42,7 @@ const MenuButton = ({ user, signOut, resetPot }: MenuButtonProps) => {
                   </Tooltip>
                 </ListItem>
                 <ListItem disablePadding>
-                  <Tooltip title="Reset" placement="right">
+                  <Tooltip title="다시 키우기" placement="right">
                     <IconButton
                       onClick={resetPot}
                       aria-label="reset"
