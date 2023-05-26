@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { PaletteMode, createTheme } from "@mui/material";
-import { grey, deepOrange, yellow, brown } from "@mui/material/colors";
+import { grey, yellow, brown } from "@mui/material/colors";
 
 const useTheme = () => {
   const [mode, setMode] = useState<PaletteMode>("light");
@@ -37,6 +37,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
           text: {
             primary: grey[900],
             secondary: grey[800],
+            success: grey[900],
           },
         }
       : {

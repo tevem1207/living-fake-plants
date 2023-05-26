@@ -1,6 +1,6 @@
-import { useEffect, createContext } from "react";
+import { useEffect, createContext, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { ThemeProvider, Container, Box } from "@mui/material";
+import { ThemeProvider, Container, Box, Snackbar, Alert } from "@mui/material";
 import useTheme from "hooks/useTheme";
 import Home from "views/Home";
 import SignIn from "views/SignIn";
@@ -11,8 +11,19 @@ import Reset from "views/Reset";
 function App() {
   const { user, setUser, signIn, signOut } = useAuth();
   const { mode, setMode, theme, colorMode } = useTheme();
-
   const navigate = useNavigate();
+  const [snackState, setSnackState] = useState({
+    open: false,
+    message: "",
+  });
+
+  const handleSnackClose = () => {
+    setSnackState({
+      open: false,
+      message: "",
+    });
+  };
+
   useEffect(() => {
     window.addEventListener("resize", setScreenSize);
 
@@ -63,6 +74,8 @@ function App() {
                         signOut={signOut}
                         mode={mode}
                         setMode={setMode}
+                        snackState={snackState}
+                        setSnackState={setSnackState}
                       />
                     }
                   />
@@ -75,6 +88,20 @@ function App() {
             </Routes>
           </Container>
         </Box>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          open={snackState.open}
+          onClose={handleSnackClose}
+          key={"snack"}
+        >
+          <Alert
+            onClose={handleSnackClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            {snackState.message}
+          </Alert>
+        </Snackbar>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

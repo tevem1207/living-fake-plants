@@ -9,12 +9,29 @@ import usePot from "hooks/usePot";
 
 interface HomeProps {
   user: User;
-  signOut: () => void;
+  signOut: () => Promise<void>;
   mode: PaletteMode;
   setMode: Dispatch<SetStateAction<PaletteMode>>;
+  snackState: {
+    open: boolean;
+    message: string;
+  };
+  setSnackState: Dispatch<
+    SetStateAction<{
+      open: boolean;
+      message: string;
+    }>
+  >;
 }
 
-const Home = ({ user, signOut, mode, setMode }: HomeProps) => {
+const Home = ({
+  user,
+  signOut,
+  mode,
+  setMode,
+  setSnackState,
+  snackState,
+}: HomeProps) => {
   const { pot, growPot, resetPot, getUserPot } = usePot(user.uid);
 
   useEffect(() => {
@@ -26,7 +43,13 @@ const Home = ({ user, signOut, mode, setMode }: HomeProps) => {
       {mode === "dark" && <Rain delay={2} drops={80} />}
       {user && pot && <Pot pot={pot} growPot={growPot} mode={mode} />}
       {mode === "dark" && <Rain delay={0.5} drops={120} />}
-      <MenuButton user={user} signOut={signOut} resetPot={resetPot} />
+      <MenuButton
+        user={user}
+        signOut={signOut}
+        resetPot={resetPot}
+        snackState={snackState}
+        setSnackState={setSnackState}
+      />
       <WeatherSwitch mode={mode} setMode={setMode} />
     </>
   );

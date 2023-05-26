@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useFireStore from "./useFirestore";
 import { Plant, Pot } from "utils/types";
 import { arrayUnion, arrayRemove } from "firebase/firestore";
@@ -70,7 +70,8 @@ const usePot = (uid: string) => {
     if (pot && potId) {
       const plant = (await readData("plant/" + pot?.plantId)) as Plant;
       const newGauge =
-        pot.growthGauge + 30 - Math.abs(pot.potMoisture - plant.plantMoisture);
+        pot.growthGauge + 20 - Math.abs(pot.potMoisture - plant.plantMoisture);
+      console.log(pot);
       await updateData("pot/" + potId, {
         potMoisture: isRain
           ? pot.potMoisture < 20

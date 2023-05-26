@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import {
   Box,
   Collapse,
@@ -9,16 +9,53 @@ import {
 } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
 import { User } from "firebase/auth";
-import { Logout, Menu, AutoStories, Replay } from "@mui/icons-material";
+import { Logout, Menu, Replay } from "@mui/icons-material";
 
 interface MenuButtonProps {
   user: User | null;
-  signOut: () => void;
+  signOut: () => Promise<void>;
   resetPot: () => Promise<void>;
+  snackState: {
+    open: boolean;
+    message: string;
+  };
+  setSnackState: Dispatch<
+    SetStateAction<{
+      open: boolean;
+      message: string;
+    }>
+  >;
 }
 
-const MenuButton = ({ user, signOut, resetPot }: MenuButtonProps) => {
+const MenuButton = ({
+  user,
+  signOut,
+  resetPot,
+  setSnackState,
+  snackState,
+}: MenuButtonProps) => {
   const [isMenu, setIsMenu] = useState(false);
+
+  const openSnack = (snackMessage: string) => {
+    console.log("open");
+    setSnackState({
+      open: true,
+      message: snackMessage,
+    });
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    openSnack("로그아웃 되었습니다.");
+    console.log("logout");
+  };
+
+  const handleReset = async () => {
+    await resetPot();
+    openSnack("초기화 되었습니다.");
+    console.log("reset");
+    console.log(snackState);
+  };
 
   return (
     <Box position="absolute" top="15px" left="20px">
@@ -33,7 +70,7 @@ const MenuButton = ({ user, signOut, resetPot }: MenuButtonProps) => {
                 <ListItem disablePadding>
                   <Tooltip title="로그아웃" placement="right">
                     <IconButton
-                      onClick={signOut}
+                      onClick={handleSignOut}
                       aria-label="logout"
                       sx={{ mt: 2 }}
                     >
@@ -44,7 +81,7 @@ const MenuButton = ({ user, signOut, resetPot }: MenuButtonProps) => {
                 <ListItem disablePadding>
                   <Tooltip title="다시 키우기" placement="right">
                     <IconButton
-                      onClick={resetPot}
+                      onClick={handleReset}
                       aria-label="reset"
                       sx={{ mt: 2 }}
                     >
