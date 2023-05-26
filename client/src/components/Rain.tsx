@@ -1,3 +1,4 @@
+import { useEffect, useState, memo } from "react";
 import { Box } from "@mui/material";
 
 const Drop = ({
@@ -21,7 +22,7 @@ const Drop = ({
         top: top,
         bottom: "200px",
         position: "absolute",
-        animation: `drop linear 6s infinite ${delay}s, fade ${delay * 2}s`,
+        animation: `drop linear 5s infinite ${delay}s, fade ${delay * 2}s`,
         "@keyframes drop": {
           "95%": { opacity: 1 },
           "100%": {
@@ -50,6 +51,12 @@ const Rain = ({ delay, drops }: { delay: number; drops: number }) => {
   function randRange(minNum: number, maxNum: number) {
     return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
   }
+  const [isLoad, setIsLoad] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoad(true);
+    }, 500);
+  }, []);
 
   return (
     <Box
@@ -57,14 +64,22 @@ const Rain = ({ delay, drops }: { delay: number; drops: number }) => {
         position: "relative",
       }}
     >
-      {Array.from(Array(drops), (x) => {
-        const left = randRange(-800, 800);
-        const top = randRange(-6000, 0);
+      {isLoad &&
+        Array.from(Array(drops), (x, index) => {
+          const left = randRange(-800, 800);
+          const top = randRange(-6000, 0);
 
-        return <Drop left={left} top={top} delay={delay} />;
-      })}
+          return (
+            <Drop
+              left={left}
+              top={top}
+              delay={delay}
+              key={"" + delay + drops + index}
+            />
+          );
+        })}
     </Box>
   );
 };
 
-export default Rain;
+export default memo(Rain);

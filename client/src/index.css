@@ -21,7 +21,7 @@ code {
 
 :root {
   --pixel-img-size: calc(96px + 5vmin);
-  --pot-img-size: calc(var(--pixel-img-size) * 1.25)
+  --pot-img-size: calc(var(--pixel-img-size) * 1.25);
 }
 
 .pixel-img {

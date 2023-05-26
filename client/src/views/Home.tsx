@@ -24,7 +24,7 @@ const Home = ({ user, signOut, mode, setMode }: HomeProps) => {
   return (
     <>
       {mode === "dark" && <Rain delay={2} drops={80} />}
-      {user && pot && <Pot pot={pot} growPot={growPot} resetPot={resetPot} />}
+      {user && pot && <Pot pot={pot} growPot={growPot} mode={mode} />}
       {mode === "dark" && <Rain delay={0.5} drops={120} />}
       <MenuButton user={user} signOut={signOut} resetPot={resetPot} />
       <WeatherSwitch mode={mode} setMode={setMode} />

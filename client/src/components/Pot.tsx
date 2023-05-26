@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, PaletteMode } from "@mui/material";
 import Plant from "components/Plant";
 import useInterval from "hooks/useInterval";
 import { Pot as PotType } from "utils/types";
@@ -8,12 +8,12 @@ import potTop from "assets/imgs/pot_top.png";
 interface PotProps {
   pot: PotType;
   growPot: (isRain: boolean) => Promise<void>;
-  resetPot: () => Promise<void>;
+  mode: PaletteMode;
 }
 
-const Pot = ({ pot, growPot, resetPot }: PotProps) => {
+const Pot = ({ pot, growPot, mode }: PotProps) => {
   useInterval(() => {
-    growPot(false);
+    growPot(mode === "dark" ? true : false);
   }, 3000);
 
   return (
@@ -24,13 +24,14 @@ const Pot = ({ pot, growPot, resetPot }: PotProps) => {
           content: "''",
           display: "block",
           position: "absolute",
-          top: "calc(var(--pixel-img-size) * 0.28)",
-          left: "calc(-1 * var(--pixel-img-size) * 0.48)",
-          width: "calc(var(--pixel-img-size) * 0.86)",
-          height: "calc(var(--pixel-img-size) * 0.26)",
+          top: "calc(var(--pot-img-size) * 0.29)",
+          left: "calc(-1 * var(--pot-img-size) * 0.43)",
+          width: "calc(var(--pot-img-size) * 0.74)",
+          height: "calc(var(--pot-img-size) * 0.2)",
+          transform: "rotate( 1deg )",
           borderRadius: "50%",
-          bgcolor: "rgba(0, 0, 0, 0.35)",
-          filter: "blur(4px)",
+          bgcolor: "rgba(0, 0, 0, 0.4)",
+          filter: "blur(2px)",
         },
       }}
     >
