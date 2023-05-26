@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Box, Collapse, IconButton, ListItem, List } from "@mui/material";
+import {
+  Box,
+  Collapse,
+  IconButton,
+  ListItem,
+  List,
+  Tooltip,
+} from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
 import { User } from "firebase/auth";
 import { Logout, Menu, AutoStories, Replay } from "@mui/icons-material";
@@ -24,22 +31,26 @@ const MenuButton = ({ user, signOut, resetPot }: MenuButtonProps) => {
             <Collapse key="menu">
               <List sx={{ padding: 0 }}>
                 <ListItem disablePadding>
-                  <IconButton
-                    onClick={signOut}
-                    aria-label="logout"
-                    sx={{ mt: 2 }}
-                  >
-                    <Logout fontSize="large" color="primary" />
-                  </IconButton>
+                  <Tooltip title="Logout" placement="right">
+                    <IconButton
+                      onClick={signOut}
+                      aria-label="logout"
+                      sx={{ mt: 2 }}
+                    >
+                      <Logout fontSize="large" color="primary" />
+                    </IconButton>
+                  </Tooltip>
                 </ListItem>
                 <ListItem disablePadding>
-                  <IconButton
-                    onClick={resetPot}
-                    aria-label="book"
-                    sx={{ mt: 2 }}
-                  >
-                    <Replay fontSize="large" color="primary" />
-                  </IconButton>
+                  <Tooltip title="Reset" placement="right">
+                    <IconButton
+                      onClick={resetPot}
+                      aria-label="reset"
+                      sx={{ mt: 2 }}
+                    >
+                      <Replay fontSize="large" color="primary" />
+                    </IconButton>
+                  </Tooltip>
                 </ListItem>
               </List>
             </Collapse>
