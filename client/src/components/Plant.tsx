@@ -7,16 +7,7 @@ interface PlantProps {
 
 const Plant = ({ pot }: PlantProps) => {
   return (
-    <img
-      className="pixel-img"
-      src={cactus[pot.growthRate]}
-      style={{
-        transform: `translateY(calc(-${
-          pot.growthRate / 20
-        } * var(--pixel-img-size)))`,
-      }}
-      alt="cactus"
-    />
+    <img className="pixel-img" src={cactus[pot.growthRate]} alt="cactus" />
   );
 };
 
