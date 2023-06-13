@@ -106,7 +106,6 @@ const usePot = (uid: string) => {
     document.documentElement.style.setProperty(
       "--grow",
       `${pot ? pot.growthRate / 20 : 0}`
-      // `calc(${pot ? pot.growthRate / 20 : 0}px * var(--pixel-img-size)))`
     );
   }, [pot]);
 
