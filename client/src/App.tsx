@@ -8,6 +8,13 @@ import Redirect from "views/Redirect";
 import useAuth from "hooks/useAuth";
 import Reset from "views/Reset";
 
+const ColorModeContext = createContext({ toggleColorMode: () => {} });
+
+const setScreenSize = () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+};
+
 function App() {
   const { user, setUser, signIn, signOut } = useAuth();
   const { mode, setMode, theme, colorMode } = useTheme();
@@ -16,13 +23,6 @@ function App() {
     open: false,
     message: "",
   });
-
-  const ColorModeContext = createContext({ toggleColorMode: () => {} });
-
-  const setScreenSize = () => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  };
 
   const handleSnackClose = () => {
     setSnackState({

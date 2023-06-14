@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useFireStore from "./useFirestore";
 import { Plant, Pot } from "utils/types";
 import { arrayUnion, arrayRemove } from "firebase/firestore";
@@ -99,13 +99,6 @@ const usePot = (uid: string) => {
     await addPot(uid, "이름없음");
     navigate("/");
   };
-
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--grow",
-      `${pot ? pot.growthRate / 20 : 0}`
-    );
-  }, [pot]);
 
   return { pot, growPot, resetPot, getUserPot };
 };

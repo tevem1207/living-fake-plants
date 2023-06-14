@@ -38,6 +38,13 @@ const Home = ({
     getUserPot();
   }, [user.uid]);
 
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--grow",
+      `${pot ? pot.growthRate / 20 : 0}`
+    );
+  }, [pot]);
+
   return (
     <>
       {mode === "dark" && <Rain delay={2} drops={80} />}
