@@ -36,7 +36,7 @@ const Home = ({
 
   useEffect(() => {
     getUserPot();
-  }, []);
+  }, [user.uid]);
 
   return (
     <>

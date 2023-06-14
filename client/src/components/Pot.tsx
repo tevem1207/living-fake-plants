@@ -20,6 +20,14 @@ const Pot = ({ pot, growPot, mode }: PotProps) => {
     <Box
       position={"relative"}
       sx={{
+        cursor: "pointer",
+        "@keyframes vibrate": {
+          "50%": { transform: "rotate(1deg) translateX(1px)" },
+          "100%": { transform: "rotate(-1deg) translateX(-1px)" },
+        },
+        "&:active": {
+          animation: "vibrate linear 150ms infinite",
+        },
         "&:before": {
           content: "''",
           display: "block",

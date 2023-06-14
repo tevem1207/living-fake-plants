@@ -71,7 +71,6 @@ const usePot = (uid: string) => {
       const plant = (await readData("plant/" + pot?.plantId)) as Plant;
       const newGauge =
         pot.growthGauge + 20 - Math.abs(pot.potMoisture - plant.plantMoisture);
-      console.log(pot);
       await updateData("pot/" + potId, {
         potMoisture: isRain
           ? pot.potMoisture < 20
@@ -102,7 +101,6 @@ const usePot = (uid: string) => {
   };
 
   useEffect(() => {
-    console.log(pot?.growthRate);
     document.documentElement.style.setProperty(
       "--grow",
       `${pot ? pot.growthRate / 20 : 0}`
